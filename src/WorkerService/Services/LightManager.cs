@@ -31,7 +31,7 @@ namespace WorkerService.Services
                 {
                     if (lampModel.IsTurnOn)
                     {
-                        // TODO: Just log the app still running...
+                        await WaitAMinuteAsync(cancellationToken);
                         continue;
                     }
 
@@ -42,7 +42,7 @@ namespace WorkerService.Services
                 {
                     if (lampModel.IsTurnOn == false)
                     {
-                        // TODO: Just log the app still running...
+                        await WaitAMinuteAsync(cancellationToken);
                         continue;
                     }
 
@@ -51,7 +51,7 @@ namespace WorkerService.Services
                 }
 
                 _logger.LogInformation("Sleep for 1 minute.");
-                await Task.Delay(60_000, cancellationToken); // شبیه‌سازی بازه نوری
+                await WaitAMinuteAsync(cancellationToken);
             }
         }
 
@@ -89,6 +89,11 @@ namespace WorkerService.Services
             _controller.Write(lampModel.Pin, PinValue.Low);
             lampModel.IsTurnOn = false;
             _logger.LogInformation("The lamp turned off.");
+        }
+
+        public async Task WaitAMinuteAsync(CancellationToken cancellationToken = default)
+        {
+            await Task.Delay(60_000, cancellationToken);
         }
         #endregion
     }
