@@ -16,6 +16,12 @@ namespace WorkerService.Services
         public async Task RunByScheduleAsync(LampScheduleModel lampModel,
             CancellationToken cancellationToken = default)
         {
+            if(lampModel.TurnOnPeriod.Count == 0)
+            {
+                _logger.LogError("No schedules found!");
+                return;
+            }
+
             // Print schedules.
             PrintTimeSchedules(lampModel.TurnOnPeriod);
 
