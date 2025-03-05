@@ -89,13 +89,13 @@ namespace WorkerService.Services
         {
             _controller.Write(lampModel.Pin, PinValue.High);
             lampModel.IsTurnOn = true;
-            _logger.LogInformation("The lamp turned on.");
+            _logger.LogInformation($"The lamp (#{lampModel.Pin}) turned on.");
         }
         private void TurnOffLamp(LampScheduleModel lampModel)
         {
             _controller.Write(lampModel.Pin, PinValue.Low);
             lampModel.IsTurnOn = false;
-            _logger.LogInformation("The lamp turned off.");
+            _logger.LogInformation("The lamp (#{lampModel.Pin}) turned off.");
         }
 
         private async Task WaitAMinuteAsync(CancellationToken cancellationToken = default)
