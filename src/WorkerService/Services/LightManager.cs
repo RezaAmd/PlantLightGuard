@@ -49,8 +49,6 @@ namespace WorkerService.Services
                     // Turn off lamp.
                     TurnOffLamp(lampModel);
                 }
-
-                _logger.LogInformation("Sleep for 1 minute.");
                 await WaitAMinuteAsync(cancellationToken);
             }
         }
@@ -93,6 +91,7 @@ namespace WorkerService.Services
 
         public async Task WaitAMinuteAsync(CancellationToken cancellationToken = default)
         {
+            _logger.LogInformation("Sleep for 1 minute.");
             await Task.Delay(60_000, cancellationToken);
         }
         #endregion
